@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <body>
+        <header>Tic-tac-toe</header>
+    <style>
+        button {
+            padding: 50px;
+        }
+    </style>
+</head>
+        <div>
+            <button id="button_1">&nbsp;</button>
+            <button id="button_2">&nbsp;</button>
+            <button>&nbsp;</button>
+        </div>
+        <div>
+            <button>&nbsp;</button>
+            <button>&nbsp;</button>
+            <button>&nbsp;</button>
+        </div>
+        <div>
+            <button>&nbsp;</button>
+            <button>&nbsp;</button> 
+            <button>&nbsp;</button>
+        </div>
+    </body>
+    <script>
+        function clicked_1() {
+            button_1.style.backgroundColor = "red";
+        }
+        button_1.addEventListener("click", clicked_1);
+
+        function clicked_2() {
+            button_2.style.backgroundColor = "yellow";
+        }
+        </script>
