@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tony's Tic Tac Toe</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    table { margin: 0 auto; border-spacing: 5px; }
+    button.cell {
+      width: 80px;
+      height: 80px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Tony's Tic Tac Toe</h2>
+<table>
+  <tr>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+  </tr>
+  <tr>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+  </tr>
+  <tr>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+    <td><button class="cell" onclick="makeMove(this)"></button></td>
+  </tr>
+</table>
+
+<p id="status">Its now X's turn to go</p>
+<button onclick="resetBoard()">Reset Game</button>
+
+<script>
+  let currentPlayer = 'X';
+  const statusText = document.getElementById('status');
+
+  function makeMove(button) {
+    if (button.textContent === '') {
+      button.textContent = currentPlayer;
+      button.disabled = true;
+      if (checkWin()) {
+        statusText.textContent = `Player ${currentPlayer} wins!`;
+        disableAll();
+      } else if ([...document.querySelectorAll('.cell')].every(btn => btn.textContent)) {
+        statusText.textContent = "It's a draw!";
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        statusText.textContent = `Player ${currentPlayer}'s turn`;
+      }
+    }
+  }
+
+  function checkWin() {
+    const cells = [...document.querySelectorAll('.cell')];
+    const winCombos = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+    return winCombos.some(combo => {
+      const [a, b, c] = combo;
+      return cells[a].textContent && 
+             cells[a].textContent === cells[b].textContent &&
+             cells[b].textContent === cells[c].textContent;
+    });
+  }
+
+  function disableAll() {
+    document.querySelectorAll('.cell').forEach(btn => btn.disabled = true);
+  }
+
+  function resetBoard() {
+    document.querySelectorAll('.cell').forEach(btn => {
+      btn.textContent = '';
+      btn.disabled = false;
+    });
+    currentPlayer = 'X';
+    statusText.textContent = "Player X's turn, please use your mouse to select the square";
+  }
+</script>
+
+</body>
+</html>
